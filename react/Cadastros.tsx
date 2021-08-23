@@ -1,80 +1,33 @@
-import React, { useState } from 'react'
-import { useCssHandles } from 'vtex.css-handles'
+import React, { useState } from 'react';
+import styles from './styles.css';
 
-interface CadastrosProps { }
+interface CadastrosProps {}
 
-const CSS_HANDLES = ['container', 'form', 'formGroup', 'textHighlight', 'input', 'btnSubmit']
+const appformulario: StorefrontFunctionComponent<CadastrosProps> = ({}) => {
 
-const Leadsupmedal: StorefrontFunctionComponent<CadastrosProps> = ({ }) => {
+  // Instanciando os estados que vão ser usados.
+  const [nome, setNome] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [celular, setCelular] = useState<string>('');
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-
-  let cadastrosImput: any = {}
-
-  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    cadastrosImput = {
-      nameCadastrado: name,
-      emailCadastrado: email,
-      phoneCadastrado: phone,
-    }
-
-    localStorage.setItem("lead", JSON.stringify(createLead));
-
-    setName('');
-    setEmail('');
-    setPhone('');
-  }
-
-  const handles = useCssHandles(CSS_HANDLES)
+  function handleEnviar(e:React.MouseEvent<HTMLInputElement, MouseEvent>) {
+    e.preventDefault();
 
   return (
-    <>
-      <div className={`${handles.container}`}>
-        <h2>Cadastre o seu melhor e-mail para receber as promoçoes da UPMedal </h2>
-        <form onSubmit={submitForm} className={`${handles.form}`}>
-          <div className={`${handles.formGroup}`}>
-            <label htmlFor="" className="f6 b db mb2">Nome Completo</label>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              placeholder="Nome Completo"
-              className={`${handles.input}`}
-              required
-            />
-          </div>
-          <div className={`${handles.formGroup}`}>
-            <label htmlFor="" className="f6 b db mb2">E-mail</label>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="E-mail"
-              className={`${handles.input}`}
-              required
-            />
-          </div>
-          <div className={`${handles.formGroup}`}>
-            <label htmlFor="" className="f6 b db mb2">Telefone</label>
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              type="text"
-              placeholder="Telefone"
-              className={`${handles.input}`}
-              required
-            />
-          </div>
-          <button type="submit" className={`${handles.btnSubmit}`}>Cadastrar</button>
-        </form>
-      </div>
-    </>
+    <div className={styles.Container}>
+      <h1 className={styles.HeadingTitulo}>Cadastre-se para receber as novidades de UPMedal</h1>
+      <form className={styles.Formulario} autoComplete="off">
+        <input className={styles.inputForms} autoComplete="off" type="text" name="Nome" id="nome" value={nome} onChange={(e: any) => setNome(e.target.value)} required placeholder="Nome" />
+        <input className={styles.inputForms} autoComplete="off" type="email" name="email" id="email" value={email} onChange={(e: any) => setEmail(e.target.value)} required placeholder="Email" />
+        <input className={styles.inputForms} autoComplete="off" type="text" name="celular" id="celular" value={celular} onChange={(e: any) => setCelular(e.target.value)} required placeholder="Telefone" />
+        <input className={styles.inputButton} type="submit" value="Enviar" name='btnEnviar' id="btnEnviar" onClick={(e) => handleEnviar(e)} />
+        <p className={styles.Mensagem}>{mensagem}</p>
+      </form>
+    </div>
   )
 }
+
+export default Cadastros;
 
 Cadastros.schema = {
   title: 'editor.cadastros.title',
