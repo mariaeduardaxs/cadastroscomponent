@@ -8,7 +8,7 @@ const appformulario: StorefrontFunctionComponent<CadastrosProps> = ({}) => {
   // Instanciando os estados que vão ser usados.
   const [nome, setNome] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [celular, setCelular] = useState<string>('');
+  const [telefone, setTelefone] = useState<string>('');
 
   function handleEnviar(e:React.MouseEvent<HTMLInputElement, MouseEvent>) {
     e.preventDefault();
